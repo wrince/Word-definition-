@@ -1,0 +1,16 @@
+
+function searchWord() {
+    const word = document.getElementById('word-input').value;
+    const definitionElement = document.getElementById('definition');
+    if (word) {
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+            .then(response => response.json())
+            .then(data => {
+                const definition = data[0].meanings[0].definitions[0].definition;
+                definitionElement.innerHTML = `<p>Definition: ${definition}</p>`;
+            })
+            .catch(err => definitionElement.innerHTML = "<p>Word not found!</p>");
+    } else {
+        definitionElement.innerHTML = "<p>Please enter a word.</p>";
+    }
+}

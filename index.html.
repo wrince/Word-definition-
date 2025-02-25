@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Meaning Finder</title>
+</head>
+<body>
+    <h1>Welcome to Word Meaning Finder</h1>
+    <p>Enter a word below to find its meaning:</p>
+    <input type="text" id="wordInput" placeholder="Type a word">
+    <button onclick="getMeaning()">Search</button>
+    <p id="result"></p>
+
+    <script>
+        function getMeaning() {
+            let word = document.getElementById("wordInput").value;
+            fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+                .then(response => response.json())
+                .then(data => {
+                    let meaning = data[0].meanings[0].definitions[0].definition;
+                    document.getElementById("result").innerText = "Meaning: " + meaning;
+                })
+                .catch(error => {
+                    document.getElementById("result").innerText = "Word not found!";
+                });
+        }
+    </script>
+</body>
+</html>
+
